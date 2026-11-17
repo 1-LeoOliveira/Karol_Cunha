@@ -1,0 +1,31 @@
+---
+/* Botão reutilizável.
+   <Button wa="facial">Agendar</Button>  → link de WhatsApp pronto
+   <Button href="#secao" variant="line">Ver</Button> */
+import { waLink } from "../../config/site.js";
+
+const {
+  href,
+  wa,
+  variant = "gold",
+  size,
+  class: extra = "",
+  ...rest
+} = Astro.props;
+
+const destino = wa ? waLink(wa) : href;
+const externo = typeof destino === "string" && destino.startsWith("http");
+const classes = [
+  "btn",
+  `btn--${variant}`,
+  size === "lg" ? "btn--lg" : "",
+  extra,
+].filter(Boolean).join(" ");
+---
+
+<a
+  class={classes}
+  href={destino}
+  {...externo ? { target: "_blank", rel: "noopener" } : {}}
+  {...rest}
+><slot /></a>

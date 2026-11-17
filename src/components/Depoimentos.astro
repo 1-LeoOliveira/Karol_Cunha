@@ -1,0 +1,105 @@
+---
+import Eyebrow from "./ui/Eyebrow.astro";
+import Button from "./ui/Button.astro";
+import GoogleG from "./ui/GoogleG.astro";
+import { site } from "../config/site.js";
+
+const { nota, quantidade, depoimentos } = site.avaliacoes;
+const { googleReviews, googleAvaliar } = site.contato;
+
+const temNota = nota != null && quantidade != null;
+const cheias = temNota ? Math.round(Number(nota)) : 0;
+const estrelas = (n) => [1, 2, 3, 4, 5].map((k) => k <= n);
+
+/* Trechos vindos do Google terminam no "… Mais". Fecha com reticências
+   em vez de deixar a frase cortada no meio. */
+const corpo = (d) => {
+  const t = String(d.texto || "").replace(/\s*\.{3,}\s*$/, "").trim();
+  return d.truncado ? `${t.replace(/[.,;:]$/, "")}…` : t;
+};
+
+/* Depoimentos muito curtos viram citação de destaque, para não
+   ficarem com cara de card incompleto ao lado dos longos. */
+const curto = (d) => corpo(d).length <= 90;
+---
+
+<section class="dep" id="depoimentos">
+  <div class="dep__in shell">
+    <header class="dep__head reveal">
+      <Eyebrow center>Depoimentos</Eyebrow>
+      <h2 class="h2">Experiências que<br /><em>inspiram confiança.</em></h2>
+    </header>
+
+    {temNota && (
+      <div class="selo reveal">
+        <div class="selo__marca">
+          <GoogleG size={22} />
+          <span>Avaliações no Google</span>
+        </div>
+
+        <div class="selo__nota">
+          <span class="selo__num">{String(nota).replace(".", ",")}</span>
+          <div>
+            <div class="stars stars--lg" aria-hidden="true">
+              {estrelas(cheias).map((on) => <span class={on ? "" : "off"}></span>)}
+            </div>
+            <p class="selo__qtd">{quantidade} avaliações</p>
+          </div>
+        </div>
+
+        {googleAvaliar && (
+          <a class="selo__cta" href={googleAvaliar} target="_blank" rel="noopener">
+            <GoogleG size={17} />
+            <span>Avalie você também</span>
+            <i aria-hidden="true"></i>
+          </a>
+        )}
+      </div>
+    )}
+
+    {depoimentos.length > 0 ? (
+      <>
+        <div class="dep__list">
+          {depoimentos.map((d) => (
+            <blockquote class={`dep__card reveal${curto(d) ? " dep__card--curto" : ""}`}>
+              <div class="dep__top">
+                <div class="stars" aria-hidden="true">
+                  {estrelas(Math.max(0, Math.min(5, Number(d.estrelas) || 5))).map((on) => (
+                    <span class={on ? "" : "off"}></span>
+                  ))}
+                </div>
+                <GoogleG size={15} />
+              </div>
+              <p>{corpo(d)}</p>
+              <cite>
+                {d.nome}
+                {d.quando && <span class="dep__quando"> · {d.quando}</span>}
+              </cite>
+            </blockquote>
+          ))}
+        </div>
+
+        {googleReviews && (
+          <div class="dep__mais reveal">
+            <Button href={googleReviews} variant="line">
+              {quantidade ? `Ler as ${quantidade} avaliações no Google` : "Ler avaliações no Google"}
+            </Button>
+          </div>
+        )}
+      </>
+    ) : (
+      <div class="dep__empty reveal">
+        <span class="bigquote" aria-hidden="true">&rdquo;</span>
+        <p>
+          Os depoimentos publicados nesta seção serão avaliações reais de
+          clientes, exibidas com o nome e o conteúdo exatamente como foram
+          escritos.
+        </p>
+        <div class="dep__acts">
+          {googleReviews && <Button href={googleReviews} variant="line">Ver avaliações no Google</Button>}
+          <Button href={site.contato.instagram} variant="line">Acompanhar no Instagram</Button>
+        </div>
+      </div>
+    )}
+  </div>
+</section>

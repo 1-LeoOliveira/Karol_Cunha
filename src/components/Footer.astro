@@ -1,0 +1,29 @@
+---
+import Wordmark from "./ui/Wordmark.astro";
+import { site } from "../config/site.js";
+
+const ano = new Date().getFullYear();
+const links = [
+  { href: "#sobre", label: "Sobre" },
+  { href: "#procedimentos", label: "Procedimentos" },
+  { href: "#cursos", label: "Cursos VIP" },
+  { href: "#galeria", label: "Galeria" },
+  { href: "#contato", label: "Contato" },
+];
+---
+
+<footer class="ft on-dark">
+  <div class="ft__in shell">
+    <Wordmark class="ft__mark" />
+
+    <nav class="ft__nav" aria-label="Rodapé">
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+    </nav>
+
+    <p class="ft__legal">
+      © {ano} {site.nome}.
+      <span class="ft__dot" aria-hidden="true">·</span>
+      Todos os direitos reservados.
+    </p>
+  </div>
+</footer>

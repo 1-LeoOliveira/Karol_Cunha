@@ -1,0 +1,89 @@
+---
+import "../styles/global.css";
+import { site, whatsappConfigurado, linhasEndereco, telefoneE164 } from "../config/site.js";
+
+const { title = site.nome, description = site.descricao, image } = Astro.props;
+const ogImage =
+  image ||
+  "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1200&q=80";
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : Astro.url.pathname;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "HealthAndBeautyBusiness",
+  name: site.nome,
+  description: site.descricao,
+  sameAs: [site.contato.instagram].filter(Boolean),
+  ...(telefoneE164 ? { telephone: telefoneE164 } : {}),
+  ...(site.avaliacoes.nota != null && site.avaliacoes.quantidade != null
+    ? {
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: site.avaliacoes.nota,
+          reviewCount: site.avaliacoes.quantidade,
+          bestRating: 5,
+          worstRating: 1,
+        },
+      }
+    : {}),
+  ...(site.endereco.estruturado
+    ? {
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: site.endereco.estruturado.rua,
+          addressLocality: `${site.endereco.estruturado.bairro}, ${site.endereco.estruturado.cidade}`,
+          addressRegion: site.endereco.estruturado.uf,
+          postalCode: site.endereco.estruturado.cep,
+          addressCountry: site.endereco.estruturado.pais,
+        },
+      }
+    : linhasEndereco.length
+      ? { address: { "@type": "PostalAddress", streetAddress: linhasEndereco.join(", ") } }
+      : {}),
+  makesOffer: ["Estética facial", "Estética corporal", "Massoterapia", "Cursos VIP de capacitação"].map(
+    (n) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: n } })
+  ),
+};
+
+const favicon =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23171512'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' fill='%23C5A34A' text-anchor='middle'%3EKC%3C/text%3E%3C/svg%3E";
+---
+
+<!doctype html>
+<html lang="pt-BR" data-wa-pendente={whatsappConfigurado ? "0" : "1"}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#F8F5EF" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href={favicon} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content={site.nome} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap"
+    />
+
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} is:inline />
+  </head>
+
+  <body>
+    <a class="skip" href="#inicio">Ir para o conteúdo</a>
+    <slot />
+    <script src="../scripts/main.js"></script>
+  </body>
+</html>

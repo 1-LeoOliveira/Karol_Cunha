@@ -1,0 +1,47 @@
+---
+import Eyebrow from "./ui/Eyebrow.astro";
+import { site } from "../config/site.js";
+import { galeria } from "../config/procedimentos.js";
+---
+
+<section class="gal" id="galeria">
+  <div class="gal__in shell">
+    <header class="gal__head reveal">
+      <div>
+        <Eyebrow>Galeria</Eyebrow>
+        <h2 class="h2">O espaço, os detalhes,<br /><em>o cuidado.</em></h2>
+      </div>
+      <a class="gal__ig" href={site.contato.instagram} target="_blank" rel="noopener">
+        <span>Acompanhe no Instagram</span>
+        <i aria-hidden="true"></i>
+      </a>
+    </header>
+
+    <!-- data-feed: quando site.instagramFeed.endpoint estiver preenchido,
+         o script substitui estas imagens pelas do feed, mantendo o layout. -->
+    <div
+      class="gal__grid"
+      id="galGrid"
+      data-feed={site.instagramFeed.endpoint || ""}
+      data-limite={String(site.instagramFeed.limite || 8)}
+    >
+      {galeria.map((f, i) => (
+        <figure class="gal__item reveal" tabindex="0" role="button"
+                aria-label={`Ampliar: ${f.legenda || f.alt}`} data-i={i}>
+          <img src={f.src} alt={f.alt} loading="lazy" decoding="async" />
+          <figcaption class="gal__cap">{f.legenda}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<div class="lb" id="lb" hidden>
+  <button class="lb__close" id="lbClose" aria-label="Fechar">&times;</button>
+  <button class="lb__nav lb__nav--prev" id="lbPrev" aria-label="Anterior">&#8249;</button>
+  <figure class="lb__fig">
+    <img id="lbImg" src="" alt="" />
+    <figcaption id="lbCap"></figcaption>
+  </figure>
+  <button class="lb__nav lb__nav--next" id="lbNext" aria-label="Próxima">&#8250;</button>
+</div>

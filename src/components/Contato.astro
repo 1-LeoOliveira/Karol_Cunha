@@ -1,0 +1,92 @@
+---
+import Eyebrow from "./ui/Eyebrow.astro";
+import Button from "./ui/Button.astro";
+import Ornament from "./ui/Ornament.astro";
+import { site, waLink, linhasEndereco } from "../config/site.js";
+
+const { contato, endereco, horarios, horariosNota } = site;
+const mapSrc = endereco.buscaMaps
+  ? `https://www.google.com/maps?q=${encodeURIComponent(endereco.buscaMaps)}&output=embed`
+  : null;
+---
+
+<section class="cta">
+  <div class="cta__in shell reveal">
+    <Eyebrow center>Agendamento</Eyebrow>
+    <Ornament width={168} class="cta__orn" />
+    <h2 class="cta__title">Seu momento de cuidado<br /><em>merece começar agora.</em></h2>
+    <Button wa="geral" size="lg">Agendar pelo WhatsApp</Button>
+    {contato.whatsappVisivel && <p class="cta__note">{contato.whatsappVisivel}</p>}
+  </div>
+</section>
+
+<section class="loc" id="contato">
+  <div class="loc__in shell">
+    <div class="loc__info reveal">
+      <Eyebrow>Onde estamos</Eyebrow>
+      <h2 class="h2">Localização<br /><em>e contato.</em></h2>
+
+      <dl class="info">
+        <div class="info__row">
+          <dt>Endereço</dt>
+          <dd>
+            {linhasEndereco.length > 0
+              ? linhasEndereco.map((l, i) => (i === 0 ? <span>{l}</span> : <><br />{l}</>))
+              : "Endereço completo enviado na confirmação do agendamento."}
+          </dd>
+        </div>
+
+        <div class="info__row">
+          <dt>Horários</dt>
+          <dd>
+            <ul class="hours">
+              {horarios.filter((h) => h && h.dias).map((h) => (
+                <li><span>{h.dias}</span><span>{h.horas}</span></li>
+              ))}
+            </ul>
+            {horariosNota && <p class="hours__note">{horariosNota}</p>}
+          </dd>
+        </div>
+
+        <div class="info__row">
+          <dt>Contato</dt>
+          <dd class="links">
+            <a href={waLink("geral")} target="_blank" rel="noopener">
+              WhatsApp{contato.whatsappVisivel && <span> · {contato.whatsappVisivel}</span>}
+            </a>
+            <a href={contato.instagram} target="_blank" rel="noopener">
+              Instagram <span>{contato.instagramHandle}</span>
+            </a>
+            {contato.email && <a href={`mailto:${contato.email}`}>{contato.email}</a>}
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="loc__map reveal">
+      <div class="map">
+        {mapSrc && (
+          <iframe
+            src={mapSrc}
+            title={`Mapa — ${site.nome}`}
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+          ></iframe>
+        )}
+        <div class="map__fallback">
+          <span class="map__pin" aria-hidden="true"></span>
+          <p class="map__title">{site.nome}</p>
+          <p class="map__txt">
+            {linhasEndereco.length > 0
+              ? linhasEndereco.join(" · ")
+              : "Endereço completo disponível no WhatsApp."}
+          </p>
+          <Button wa="geral" variant="line">
+            {linhasEndereco.length > 0 ? "Falar pelo WhatsApp" : "Pedir o endereço"}
+          </Button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

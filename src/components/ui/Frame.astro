@@ -1,0 +1,58 @@
+---
+/* Fotografia com moldura dourada deslocada.
+
+   Foto local (otimizada na build — recomendado):
+     import foto from "../assets/karol-cunha.jpg";
+     <Frame image={foto} alt="…" />
+
+   Foto remota:
+     <Frame src="https://…" alt="…" /> */
+import { Image } from "astro:assets";
+
+const {
+  image,
+  src,
+  alt = "",
+  width = 900,
+  height = 1125,
+  side = "right",
+  sm = false,
+  eager = false,
+  class: extra = "",
+} = Astro.props;
+
+const classes = [
+  "frame",
+  side === "left" ? "frame--left" : "",
+  sm ? "frame--sm" : "",
+  extra,
+].filter(Boolean).join(" ");
+
+const carregamento = eager ? "eager" : "lazy";
+---
+
+<figure class={classes}>
+  {image ? (
+    <Image
+      src={image}
+      alt={alt}
+      widths={[480, 760, 1000]}
+      sizes="(max-width: 1080px) 92vw, 46vw"
+      format="webp"
+      quality={78}
+      loading={carregamento}
+      decoding="async"
+      {...eager ? { fetchpriority: "high" } : {}}
+    />
+  ) : (
+    <img
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      loading={carregamento}
+      decoding="async"
+      {...eager ? { fetchpriority: "high" } : {}}
+    />
+  )}
+</figure>

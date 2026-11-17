@@ -1,0 +1,26 @@
+---
+import Eyebrow from "./ui/Eyebrow.astro";
+import { diferenciais } from "../config/procedimentos.js";
+---
+
+<section class="exp" id="experiencia">
+  <div class="exp__in shell">
+    <div class="exp__head reveal">
+      <Eyebrow light>A experiência</Eyebrow>
+      <h2 class="h2 h2--light">O cuidado começa antes<br /><em>do primeiro toque.</em></h2>
+    </div>
+
+    <ul class="exp__grid">
+      {diferenciais.map((d) => (
+        <li class="exp__item reveal">
+          <h3>{d.titulo}</h3>
+          <p>{d.texto}</p>
+        </li>
+      ))}
+    </ul>
+
+    <blockquote class="exp__quote reveal">
+      <p>Sair daqui sentindo-se melhor do que chegou é parte do protocolo.</p>
+    </blockquote>
+  </div>
+</section>

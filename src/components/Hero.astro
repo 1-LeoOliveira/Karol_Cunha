@@ -1,0 +1,54 @@
+---
+import Eyebrow from "./ui/Eyebrow.astro";
+import Button from "./ui/Button.astro";
+import Frame from "./ui/Frame.astro";
+---
+
+<section class="hero" id="inicio">
+  <div class="hero__in shell">
+    <div class="hero__copy">
+      <Eyebrow>Estética · Massoterapia · Cursos VIP</Eyebrow>
+
+      <h1 class="hero__title">
+        Beleza, cuidado<br />e bem-estar em sua<br /><em>melhor versão.</em>
+      </h1>
+
+      <p class="hero__lead">
+        Experiências personalizadas em estética e massoterapia, com técnicas
+        especializadas e atenção aos detalhes para valorizar sua beleza e
+        proporcionar seu bem-estar.
+      </p>
+
+      <div class="hero__acts">
+        <Button href="#procedimentos">Conheça nossos tratamentos</Button>
+        <Button wa="geral" variant="line">Agende seu horário</Button>
+      </div>
+
+      <p class="hero__note">Atendimento individual, com hora marcada.</p>
+    </div>
+
+    <div class="hero__art">
+      <Frame
+        src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1000&q=80"
+        alt="Cliente recebendo cuidado facial em ambiente tranquilo"
+        width={1000}
+        height={1250}
+        eager
+      />
+      <figure class="hero__inset">
+        <img
+          src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=700&q=80"
+          alt="Detalhe de pedras quentes e toalhas preparadas"
+          width="700" height="700" loading="lazy" decoding="async"
+        />
+      </figure>
+      <div class="hero__seal" aria-hidden="true">
+        <span>Karol</span><i></i><span>Cunha</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__rail" aria-hidden="true">
+    <span>Rolar</span><i></i>
+  </div>
+</section>

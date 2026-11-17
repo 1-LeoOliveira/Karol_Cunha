@@ -1,0 +1,9 @@
+---
+/* Rótulo de seção com losango dourado. */
+const { light = false, center = false, class: extra = "" } = Astro.props;
+const classes = ["eyebrow", light ? "eyebrow--light" : "", extra].filter(Boolean).join(" ");
+---
+
+<p class={classes} style={center ? "justify-content:center" : undefined}>
+  <i class="lozenge" aria-hidden="true"></i><slot />
+</p>

@@ -1,0 +1,36 @@
+---
+/* Logotipo Karol Cunha, reproduzindo a estrutura da fachada:
+   capitulares romanas douradas · filete + arabesco · subtítulo espaçado.
+
+   size="full"    → lockup completo (rodapé, destaques)
+   size="compact" → versão horizontal reduzida (cabeçalho)
+
+   Para usar o arquivo oficial da logo no lugar deste desenho, troque o
+   bloco interno por <img src="/logo.svg" alt="Karol Cunha" />. */
+import Ornament from "./Ornament.astro";
+
+const { size = "full", class: extra = "" } = Astro.props;
+const compact = size === "compact";
+---
+
+<span class={["wm", compact ? "wm--compact" : "wm--full", extra].filter(Boolean).join(" ")}>
+  <span class="wm__name">
+    <span class="wm__cap">K</span>arol <span class="wm__cap">C</span>unha
+  </span>
+
+  {!compact && (
+    <span class="wm__rule" aria-hidden="true">
+      <Ornament width={132} />
+      <i></i>
+    </span>
+  )}
+
+  <span class="wm__sub">Estética e Massoterapia</span>
+
+  {!compact && (
+    <span class="wm__rule wm__rule--under" aria-hidden="true">
+      <i></i>
+      <Ornament width={110} flip />
+    </span>
+  )}
+</span>

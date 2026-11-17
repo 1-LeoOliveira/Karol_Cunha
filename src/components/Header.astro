@@ -1,0 +1,44 @@
+---
+import Wordmark from "./ui/Wordmark.astro";
+import Button from "./ui/Button.astro";
+import { site } from "../config/site.js";
+
+const links = [
+  { href: "#sobre", label: "Sobre" },
+  { href: "#procedimentos", label: "Procedimentos" },
+  { href: "#experiencia", label: "Experiência" },
+  { href: "#depoimentos", label: "Depoimentos" },
+  { href: "#cursos", label: "Cursos VIP" },
+  { href: "#galeria", label: "Galeria" },
+  { href: "#contato", label: "Contato" },
+];
+const principais = links.filter((l) => l.label !== "Experiência" && l.label !== "Depoimentos");
+---
+
+<header class="hdr" id="hdr">
+  <div class="hdr__in shell">
+    <a class="mark" href="#inicio" aria-label={`${site.nome} — início`}>
+      <Wordmark size="compact" />
+    </a>
+
+    <nav class="nav" aria-label="Navegação principal">
+      {principais.map((l) => <a href={l.href}>{l.label}</a>)}
+    </nav>
+
+    <Button wa="geral" variant="line" class="hdr__cta">Agendar</Button>
+
+    <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="drawer">
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" hidden>
+  <nav class="drawer__nav" aria-label="Navegação">
+    {links.map((l) => <a href={l.href}>{l.label}</a>)}
+  </nav>
+  <div class="drawer__foot">
+    <Button wa="geral">Agendar pelo WhatsApp</Button>
+    <a class="drawer__ig" href={site.contato.instagram} target="_blank" rel="noopener">Instagram</a>
+  </div>
+</div>

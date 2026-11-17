@@ -1,0 +1,71 @@
+---
+import Eyebrow from "./ui/Eyebrow.astro";
+import Frame from "./ui/Frame.astro";
+import { site } from "../config/site.js";
+import fotoKarol from "../assets/karol-cunha.jpg";
+
+const { credenciais, marcos } = site.sobre;
+---
+
+<section class="sobre" id="sobre">
+  <div class="sobre__in shell">
+    <div class="sobre__art reveal">
+      <Frame
+        class="sobre__big"
+        side="left"
+        image={fotoKarol}
+        alt="Karol Cunha, profissional de estética e massoterapia"
+      />
+      <figure class="sobre__small">
+        <img
+          src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=600&q=80"
+          alt="Detalhe de mãos aplicando cosmético"
+          width="600" height="600" loading="lazy" decoding="async"
+        />
+      </figure>
+      <span class="sobre__word" aria-hidden="true">Karol</span>
+    </div>
+
+    <div class="sobre__copy reveal">
+      <Eyebrow>Sobre</Eyebrow>
+      <h2 class="h2">Seu momento de cuidado<br /><em>começa aqui.</em></h2>
+
+      <p class="drop">
+        A Karol Cunha Estética e Massoterapia nasceu do desejo de oferecer um
+        atendimento em que cada detalhe é pensado para a pessoa que está na maca.
+        Aqui, estética e bem-estar caminham juntos: o resultado importa, e a forma
+        como você se sente durante todo o processo importa igualmente.
+      </p>
+      <p>
+        O trabalho de Karol Cunha reúne três frentes — estética facial, estética
+        corporal e massoterapia —, sempre conduzidas de forma individualizada.
+        Antes de qualquer procedimento, há conversa, avaliação e a construção de
+        um protocolo que respeita o seu tempo, a sua pele e os seus objetivos.
+      </p>
+      <p>
+        A atuação se estende também à capacitação profissional, por meio dos
+        Cursos VIP, formato reservado para quem deseja aprender com
+        acompanhamento próximo e prática orientada.
+      </p>
+
+      {credenciais.length > 0 && (
+        <ul class="creds">
+          {credenciais.map((c) => <li>{c}</li>)}
+        </ul>
+      )}
+
+      {marcos.length > 0 && (
+        <div class="marcos">
+          {marcos.map((m) => (
+            <div><strong>{m.numero}</strong><span>{m.rotulo}</span></div>
+          ))}
+        </div>
+      )}
+
+      <div class="sign">
+        <span class="sign__name">{site.nomeCurto}</span>
+        <span class="sign__role">{site.assinatura}</span>
+      </div>
+    </div>
+  </div>
+</section>

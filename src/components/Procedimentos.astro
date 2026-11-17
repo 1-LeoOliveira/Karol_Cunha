@@ -1,0 +1,61 @@
+---
+import Eyebrow from "./ui/Eyebrow.astro";
+import Button from "./ui/Button.astro";
+import Frame from "./ui/Frame.astro";
+import { categorias } from "../config/procedimentos.js";
+---
+
+<section class="proc" id="procedimentos">
+  <div class="proc__in shell">
+    <header class="proc__head reveal">
+      <Eyebrow>Procedimentos</Eyebrow>
+      <h2 class="h2">Protocolos conduzidos<br /><em>com técnica e presença.</em></h2>
+      <p class="proc__intro">
+        Três frentes de trabalho, cada uma com seus próprios recursos. A escolha
+        do protocolo acontece na avaliação, considerando o que você deseja e o
+        que a sua pele ou o seu corpo pedem naquele momento.
+      </p>
+    </header>
+
+    <div class="proc__body">
+      <div class="proc__index" role="tablist" aria-label="Categorias de procedimentos">
+        {categorias.map((c, i) => (
+          <button
+            class={`pix${i === 0 ? " is-on" : ""}`}
+            role="tab"
+            id={`tab-${c.id}`}
+            aria-controls={`pan-${c.id}`}
+            aria-selected={i === 0 ? "true" : "false"}
+            tabindex={i === 0 ? 0 : -1}
+          >
+            <span class="pix__name">{c.nome}</span>
+            <span class="pix__meta">{c.itens.length} procedimentos</span>
+          </button>
+        ))}
+      </div>
+
+      <div class="proc__panels">
+        {categorias.map((c, i) => (
+          <article
+            class="pan"
+            id={`pan-${c.id}`}
+            role="tabpanel"
+            aria-labelledby={`tab-${c.id}`}
+            tabindex="0"
+            hidden={i !== 0}
+          >
+            <Frame class="pan__fig" sm src={c.imagem} alt={c.alt} width={900} height={1200} />
+            <div class="pan__copy">
+              <h3 class="pan__title">{c.nome}</h3>
+              <p class="pan__txt">{c.texto}</p>
+              <ul class="pan__list">
+                {c.itens.map((item) => <li>{item}</li>)}
+              </ul>
+              <Button wa={c.chaveWhatsApp}>{c.cta}</Button>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

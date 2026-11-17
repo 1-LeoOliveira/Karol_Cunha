@@ -1,0 +1,48 @@
+---
+import Eyebrow from "./ui/Eyebrow.astro";
+import Button from "./ui/Button.astro";
+import Frame from "./ui/Frame.astro";
+import { cursos } from "../config/procedimentos.js";
+---
+
+<section class="vip" id="cursos">
+  <div class="vip__in shell">
+    <div class="vip__copy reveal">
+      <Eyebrow light>Cursos VIP</Eyebrow>
+      <h2 class="h2 h2--light">Transforme conhecimento<br /><em>em novas oportunidades.</em></h2>
+
+      <p class="vip__txt">
+        Os Cursos VIP são turmas reduzidas, com acompanhamento próximo e prática
+        orientada do início ao fim. O formato foi pensado para quem quer sair da
+        capacitação com segurança para atender — e não apenas com teoria.
+      </p>
+
+      <ul class="vip__list">
+        {cursos.map((c) => (
+          <li>
+            <span class="vip__name">{c.nome}</span>
+            <span class="vip__desc">{c.desc}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div class="vip__acts">
+        <Button wa="cursos">Quero informações dos Cursos VIP</Button>
+        <p class="vip__note">Datas, investimento e conteúdo programático enviados pelo WhatsApp.</p>
+      </div>
+    </div>
+
+    <div class="vip__art reveal">
+      <Frame
+        class="frame--light"
+        src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=950&q=80"
+        alt="Profissional em formação praticando técnica de estética"
+        width={950}
+        height={1188}
+      />
+      <div class="vip__badge" aria-hidden="true">
+        <span>Turmas</span><strong>VIP</strong><span>reduzidas</span>
+      </div>
+    </div>
+  </div>
+</section>
