@@ -86,6 +86,31 @@ avaliacoes: {
 
 ---
 
+## Miniatura do link compartilhado (WhatsApp, Instagram, Facebook)
+
+O cartão é o arquivo **`public/og.jpg`**, 1200×630 — o recorte 1,91:1 que
+essas redes usam. A foto vertical da Karol sozinha seria cortada na altura
+do rosto, por isso o cartão combina foto, logotipo, chamada e a nota do
+Google.
+
+```bash
+npm run og     # regenera public/og.jpg
+```
+
+Rode de novo quando a foto, o nome ou a nota mudarem. O arquivo é
+versionado, então não precisa rodar a cada build.
+
+> ⚠ **A miniatura só funciona com o domínio correto.** As redes exigem URL
+> absoluta, montada a partir do campo `site` em `astro.config.mjs`. Hoje ele
+> está em `https://karolcunha.com.br`, que é um valor de exemplo — **troque
+> pelo domínio real antes de publicar**, senão nenhuma rede carrega a imagem.
+> Depois de publicar, teste em
+> [developers.facebook.com/tools/debug](https://developers.facebook.com/tools/debug/)
+> e force o "Scrape Again" — WhatsApp e Facebook guardam a miniatura em cache
+> por dias.
+
+---
+
 ## Logo
 
 O logotipo foi reconstruído em código a partir da **placa da fachada**:

@@ -2,11 +2,13 @@
 import "../styles/global.css";
 import { site, whatsappConfigurado, linhasEndereco, telefoneE164 } from "../config/site.js";
 
-import fotoKarol from "../assets/karol-cunha.jpg";
-
 const { title = site.nome, description = site.descricao, image } = Astro.props;
-/* Imagem exibida ao compartilhar o link no WhatsApp, Instagram etc. */
-const ogImage = image || (Astro.site ? new URL(fotoKarol.src, Astro.site).href : fotoKarol.src);
+
+/* Miniatura exibida ao compartilhar o link (WhatsApp, Instagram, Facebook).
+   Cartão 1200×630 gerado por scripts/make-og.mjs. Precisa ser URL absoluta,
+   por isso depende do campo `site` em astro.config.mjs apontar para o
+   domínio real — com um domínio errado, nenhuma rede carrega a imagem. */
+const ogImage = image || (Astro.site ? new URL("og.jpg", Astro.site).href : "/og.jpg");
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : Astro.url.pathname;
 
 const schema = {
@@ -68,8 +70,15 @@ const favicon =
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:alt" content={`${site.nome} — ${site.assinatura}`} />
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

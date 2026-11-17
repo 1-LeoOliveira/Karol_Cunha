@@ -9,6 +9,7 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "og": "node scripts/make-og.mjs",
     "preview:page": "astro build && node scripts/make-preview.mjs && node scripts/inline-images.mjs",
     "astro": "astro"
   },
