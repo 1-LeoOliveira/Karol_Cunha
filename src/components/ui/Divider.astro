@@ -1,0 +1,12 @@
+---
+/* Divisor com arabesco entre seções.
+   Aparece só quando as colunas empilham (≤1080px), onde as fotos de
+   uma seção encostariam na seguinte. */
+import Ornament from "./Ornament.astro";
+---
+
+<div class="divisor" aria-hidden="true">
+  <i></i>
+  <Ornament width={104} />
+  <i></i>
+</div>

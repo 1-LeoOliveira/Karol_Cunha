@@ -2,6 +2,7 @@
 import Eyebrow from "./ui/Eyebrow.astro";
 import Button from "./ui/Button.astro";
 import Frame from "./ui/Frame.astro";
+import fotoKarol from "../assets/karol-cunha.jpg";
 ---
 
 <section class="hero" id="inicio">
@@ -29,10 +30,8 @@ import Frame from "./ui/Frame.astro";
 
     <div class="hero__art">
       <Frame
-        src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1000&q=80"
-        alt="Cliente recebendo cuidado facial em ambiente tranquilo"
-        width={1000}
-        height={1250}
+        image={fotoKarol}
+        alt="Karol Cunha no espaço de atendimento"
         eager
       />
       <figure class="hero__inset">

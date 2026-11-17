@@ -2,10 +2,11 @@
 import "../styles/global.css";
 import { site, whatsappConfigurado, linhasEndereco, telefoneE164 } from "../config/site.js";
 
+import fotoKarol from "../assets/karol-cunha.jpg";
+
 const { title = site.nome, description = site.descricao, image } = Astro.props;
-const ogImage =
-  image ||
-  "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1200&q=80";
+/* Imagem exibida ao compartilhar o link no WhatsApp, Instagram etc. */
+const ogImage = image || (Astro.site ? new URL(fotoKarol.src, Astro.site).href : fotoKarol.src);
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : Astro.url.pathname;
 
 const schema = {

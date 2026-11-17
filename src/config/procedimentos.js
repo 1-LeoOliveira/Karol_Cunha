@@ -109,6 +109,6 @@ export const galeria = [
   { src: "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=1100&q=80", alt: "Detalhe de pedras quentes preparadas", legenda: "Pedras quentes" },
   { src: "https://images.unsplash.com/photo-1583416750470-965b2707b355?auto=format&fit=crop&w=1100&q=80", alt: "Produtos e cosméticos organizados", legenda: "Cosmecêuticos" },
   { src: "https://images.unsplash.com/photo-1519824145371-296894a0daa9?auto=format&fit=crop&w=1100&q=80", alt: "Toalhas e flores sobre a maca", legenda: "Preparação" },
-  { src: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1100&q=80", alt: "Cliente em momento de relaxamento", legenda: "Bem-estar" },
   { src: "https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?auto=format&fit=crop&w=1100&q=80", alt: "Aplicação de ativos no rosto", legenda: "Cuidado facial" },
+  { src: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1100&q=80", alt: "Aplicação de óleo essencial nas mãos", legenda: "Óleos e ativos" },
 ];
